@@ -136,8 +136,8 @@ public:
 
 private:
     std::map<uint32_t , EventNameProcPair> m_eventProcMap;
-//    CEventHandlerRegister *m_RegisterHandler;
-    CMessageHandler         m_msghandler;
+    CRegisterHandler  m_RegisterHandler;
+    CMessageHandler   m_msghandler;
 //    CEventHandlerCall *m_CallHandler;
 //    CEventHandlerSubscribe *m_pSubscribeHandler;
 };

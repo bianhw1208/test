@@ -258,7 +258,7 @@ int CEventHandlerManager::on_exosip_message_new(const sip_event_sptr &event)
 
     if (!strncmp(exosip_event->request->sip_method, "REGISTER", strlen("REGISTER")))
     {
-        //m_RegisterHandler->HandleRequest(event);
+        m_RegisterHandler.HandleRequest(event);
     }
     else if (!strncmp(exosip_event->request->sip_method, "MESSAGE", strlen("MESSAGE")))
     {

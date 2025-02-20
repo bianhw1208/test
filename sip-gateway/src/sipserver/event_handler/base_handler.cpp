@@ -5,7 +5,7 @@
 namespace Gateway {
 namespace SIP {
 
-int CBaseHandler::sendSimplyResp(const char *uname, struct eXosip_t *excontext, int tid, int status)
+int CBaseHandler::sendSimplyResp(const char *uname, eXosip_t *excontext, int tid, int status)
 {
     osip_message_t * answer = nullptr;
 
@@ -19,7 +19,7 @@ int CBaseHandler::sendSimplyResp(const char *uname, struct eXosip_t *excontext, 
     return r;
 }
 
-int CBaseHandler::sendCallAck(struct eXosip_t *excontext, int did)
+int CBaseHandler::sendCallAck(eXosip_t *excontext, int did)
 {
     eXosip_lock(excontext);
 
