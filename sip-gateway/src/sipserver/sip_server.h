@@ -6,9 +6,8 @@
 #include "defs.h"
 #include "event_handler/handler_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // SIP服务器类 - 处理SIP协议通信的核心类
 class CSipServer
@@ -71,6 +70,5 @@ private:
     CEventHandlerManager m_eventHandle;         // 事件处理器管理器
 };
 
-}
 }
 }

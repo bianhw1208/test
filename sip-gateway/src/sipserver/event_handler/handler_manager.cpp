@@ -1,15 +1,14 @@
-#include <sipserver/gb28181_svr_manager.h>
+#include <sipserver/sip_svr_manager.h>
 #include "handler_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 #define CALLBACK_TEMPLATE(F) (std::bind(&CEventHandlerManager::F, this, std::placeholders::_1))
 
 CEventHandlerManager::CEventHandlerManager()
 {
-    ///初始化Map表
+    ///event map
     EventNameProcPair eventProcTable[EXOSIP_EVENT_COUNT] = {
             {"EXOSIP_REGISTRATION_SUCCESS",        CALLBACK_TEMPLATE(on_exosip_registration_success)},
             {"EXOSIP_REGISTRATION_FAILURE",        CALLBACK_TEMPLATE(on_exosip_registration_failure)},
@@ -84,15 +83,15 @@ CEventHandlerManager::EventNameProcPair CEventHandlerManager::GetEventProc(eXosi
 /* REGISTER related events */
 int CEventHandlerManager::on_exosip_registration_success(const sip_event_sptr &event)
 {
-    //TODO 通知注册成功
-    CGB28181SvrManager::instance()->OnRegisterSuccess(event->exevent->rid);
+    //TODO 閫氱煡娉ㄥ唽鎴愬姛
+    SipSvrManager::instance()->OnRegisterSuccess(event->exevent->rid);
     return 0;
 }
 
 int CEventHandlerManager::on_exosip_registration_failure(const sip_event_sptr &event)
 {
     ///TODO REGISTER send twice, this is question!
-    LOG_WARN("register id: {} need authentication!", event->exevent->rid);
+    LOG_WARN("register id: {}, need authentication!", event->exevent->rid);
     eXosip_lock(event->excontext);
     eXosip_automatic_action(event->excontext);
     eXosip_unlock(event->excontext);
@@ -259,7 +258,7 @@ int CEventHandlerManager::on_exosip_message_new(const sip_event_sptr &event)
 
     if (!strncmp(exosip_event->request->sip_method, "REGISTER", strlen("REGISTER")))
     {
-//        m_RegisterHandler->HandleRequest(event);
+        //m_RegisterHandler->HandleRequest(event);
     }
     else if (!strncmp(exosip_event->request->sip_method, "MESSAGE", strlen("MESSAGE")))
     {
@@ -393,6 +392,5 @@ int CEventHandlerManager::on_exosip_notification_globalfailure(const sip_event_s
     return 0;
 }
 
-}
 }
 }

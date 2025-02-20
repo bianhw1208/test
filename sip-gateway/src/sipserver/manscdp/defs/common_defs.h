@@ -4,9 +4,8 @@
 #include "types.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 通用消息项结构 - 所有消息的基本字段
 struct common_item_t
@@ -32,6 +31,5 @@ struct manscdp_basicparam_cfg_t
     string      devname;             // 设备名称
 };
 
-}
 }
 }

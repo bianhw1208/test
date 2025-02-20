@@ -1,7 +1,6 @@
 #pragma once
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 设备ID类型枚举
 enum deviceid_type_e
@@ -59,6 +58,5 @@ enum item_file_type_e
     // TODO: 添加文件类型定义
 };
 
-}
 }
 }

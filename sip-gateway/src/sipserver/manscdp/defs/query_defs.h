@@ -4,9 +4,8 @@
 #include "control_defs.h"
 #include "common_defs.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 struct manscdp_device_status_dialog_t
 {
@@ -255,6 +254,5 @@ public:
     //TODO response
 };
 
-}
 }
 }

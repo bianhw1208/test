@@ -1,8 +1,7 @@
 #pragma once
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 enum outcoming_req_type_e
 {
@@ -12,6 +11,5 @@ enum outcoming_req_type_e
     OUTCOMING_REQ_TYPE_MAX
 };
 
-}
 }
 }

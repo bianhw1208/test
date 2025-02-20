@@ -1,9 +1,8 @@
 #include "LogWrapper.h"
 #include "message_request.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 int CKeepaliveRequest::HandleResponse(int statcode)
 {
@@ -19,6 +18,5 @@ int CKeepaliveRequest::GetStatCode()
     return m_statcode;
 }
 
-}
 }
 }

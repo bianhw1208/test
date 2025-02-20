@@ -2,9 +2,8 @@
 
 #include "base_handler.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 class CSubscribeHandler : public CBaseHandler
 {
@@ -14,6 +13,5 @@ public:
 
 };
 
-}
 }
 }

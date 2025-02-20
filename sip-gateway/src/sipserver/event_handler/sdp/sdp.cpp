@@ -1,9 +1,8 @@
 #include "sdp.h"
 #include "osipparser2/sdp_message.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 
 CSdpHandle::CSdpHandle()
@@ -78,6 +77,5 @@ int CSdpHandle::AssembleSdp(string &sdp, const sdp_description_t &sdp_desc)
     return 0;
 }
 
-}
 }
 }

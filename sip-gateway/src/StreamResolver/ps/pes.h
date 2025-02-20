@@ -10,7 +10,7 @@
 #include "timestamps.h"
 #include <iostream>
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 # define unlikely(p)   __builtin_expect(!!(p), 0)

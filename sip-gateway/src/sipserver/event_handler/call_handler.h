@@ -3,9 +3,8 @@
 #include "base_handler.h"
 #include "./sdp/call_defs.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 呼叫处理器类 - 处理SIP INVITE类型的消息
 class CCallHandler : public CBaseHandler
@@ -28,6 +27,5 @@ private:
     int on_call_talk_req(const sip_event_sptr &e, const sdp_description_t &req_sdp);
 };
 
-}
 }
 }

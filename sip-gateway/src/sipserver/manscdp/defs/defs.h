@@ -9,9 +9,8 @@
 
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // MANSCDP命令类别枚举
 enum manscdp_cmd_category_e
@@ -114,6 +113,5 @@ struct manscdp_msgbody_header_t
     manscdp_configdownload_subcmd_t     cfgdownload_subcmd; // 配置下载子命令列表
 };
 
-}
 }
 }

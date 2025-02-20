@@ -4,7 +4,7 @@
 //#include "../Src/h26x/MediaBuffer.h"
 #include "h26x_defs.h"
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 class CH26xParser

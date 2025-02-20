@@ -3,8 +3,7 @@
 #include <memory>
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 class CMediaTranspond
 {
@@ -15,5 +14,4 @@ public:
 };
 typedef shared_ptr<CMediaTranspond> transpond_ptr;
 
-}
-}
+} // namespace Gateway

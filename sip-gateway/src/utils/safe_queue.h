@@ -3,8 +3,7 @@
 #include <queue>
 #include <mutex>
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 template <typename T>
 class CSafeQueue
@@ -37,5 +36,4 @@ private:
     std::mutex    m_mutex;
 };
 
-}
 }

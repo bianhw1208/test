@@ -3,9 +3,8 @@
 #include "defs/defs.h"
 #include "LogWrapper.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 
 int CXmlParser::Load(const char *p_data, int p_size, tinyxml_doc_t &doc)
@@ -206,6 +205,5 @@ bool CXmlParser::is_member(tinyxml_ele_t *ele, const char *name)
     return child_ele != nullptr;
 }
 
-}
 }
 }

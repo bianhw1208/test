@@ -8,7 +8,7 @@
 */
 #pragma once
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 #define FROM_SCALE_NZ(x) ((int64_t)((x) * 100 / 9))

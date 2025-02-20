@@ -2,8 +2,7 @@
 
 #include "defs.h"
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 class CSessionManager
 {
@@ -20,5 +19,4 @@ private:
 
 };
 
-}
-}
+} // namespace Gateway

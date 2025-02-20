@@ -1,4 +1,4 @@
-#include "sipserver/gb28181_svr_manager.h"
+#include "sipserver/sip_svr_manager.h"
 #include "config_manager.h"
 #include "threadpool.h"
 #include "LogWrapper.h"
@@ -12,8 +12,7 @@
 #include <sys/stat.h>
 #endif
 
-using namespace Zilu;
-using namespace Protocol;
+using namespace Gateway;
 
 int path_check(const char* path) {
     if (access(path, 0) != 0) {
@@ -34,7 +33,7 @@ void init_logs()
     config.flushInterval = std::chrono::seconds(3);
     LogWrapper::GetInstance().Init(config, LogWrapper::OutMode::SYNC, LogWrapper::OutPosition::CONSOLE_AND_FILE);
 }
-
+#if 1
 int main(int argc, char* argv[])
 {
     //初始化全局配置
@@ -47,8 +46,8 @@ int main(int argc, char* argv[])
     init_logs();
 
     ///初始化
-    GB28181::CGB28181SvrManager::instance()->Init();
-    GB28181::CGB28181SvrManager::instance()->Start();
+    SIP::SipSvrManager::instance()->Init();
+    SIP::SipSvrManager::instance()->Start();
 
     while (1) {
         sleep(2*1000);
@@ -56,3 +55,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+#endif

@@ -3,8 +3,7 @@
 #include <string>
 #include "ini_utils.hpp"
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 // 本地SIP服务器配置结构
 struct local_sip_t {
@@ -65,5 +64,4 @@ private:
     media_port_pool_t m_portpool;   // 媒体端口池配置
 };
 
-}
-}
+} // namespace Gateway

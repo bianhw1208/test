@@ -8,7 +8,7 @@
 */
 #include "rtp_header.h"
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 int CRtpHeader::Decode(uint8_t *praw, uint32_t dsize)

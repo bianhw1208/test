@@ -7,19 +7,18 @@
 #include "defs.h"
 #include "Thread.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // GB28181服务管理器类 - 整个GB28181服务的核心管理类
-class CGB28181SvrManager
+class SipSvrManager
 {
 public:
-    CGB28181SvrManager();
-    ~CGB28181SvrManager();
+    SipSvrManager();
+    ~SipSvrManager();
 
     // 获取单例实例
-    static CGB28181SvrManager* instance();
+    static SipSvrManager* instance();
 
     // 初始化服务管理器
     int Init();
@@ -42,13 +41,13 @@ public:
 
 private:
     // 注册到上级平台
-    int register_online();
+    int register_to_platform();
 
     // 心跳处理线程
-    void heartbeat_proc(void *param);
+    void heartbeat_proc_to_platform(void *param);
 
     // 发送保活消息
-    int keepalive();
+    int keepalive_to_platform();
 
 private:
     bool m_bRegok;           // 注册成功标志
@@ -59,6 +58,5 @@ private:
     Infra::CThread m_heartbeat;   // 心跳线程
 };
 
-}
 }
 }

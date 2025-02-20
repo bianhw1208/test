@@ -1,14 +1,13 @@
 #include "sipserver/request_manager/request_manager.h"
 #include "mediaserver/session_manager.h"
-#include "gb28181_svr_manager.h"
+#include "sip_svr_manager.h"
 #include "config_manager.h"
 #include "sip_server.h"
 #include "mediaserver/defs.h"
 #include "Thread.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 std::string g_sipfrom_ipport; /*本级域 ip-port 格式*/
 std::string g_sipfrom_domain; /*本级域 ip-domain 格式*/
@@ -18,23 +17,23 @@ std::string g_sipproxy_domain; /*上级域 ip-domain 格式*/
 
 eXosip_t *g_excontext;
 
-CGB28181SvrManager *CGB28181SvrManager::instance()
+SipSvrManager *SipSvrManager::instance()
 {
-    static CGB28181SvrManager _ins;
+    static SipSvrManager _ins;
     return &_ins;
 }
 
-CGB28181SvrManager::CGB28181SvrManager() : m_bRegok(false), m_heartbeat("gb_heartbeat")
+SipSvrManager::SipSvrManager() : m_bRegok(false), m_heartbeat("gb_heartbeat")
 {
 
 }
 
-CGB28181SvrManager::~CGB28181SvrManager()
+SipSvrManager::~SipSvrManager()
 {
 
 }
 
-int CGB28181SvrManager::Init()
+int SipSvrManager::Init()
 {
     CConfigManager::instance()->GetLocalSip(m_localsipcfg);
     CConfigManager::instance()->GetRemoteSip(m_remotesipcfg);
@@ -56,7 +55,7 @@ int CGB28181SvrManager::Init()
     return 0;
 }
 
-int CGB28181SvrManager::Start()
+int SipSvrManager::Start()
 {
     CSipServer::instance()->Init();
     CSipServer::instance()->SetLocalConfig(m_localsipcfg.svr_id, m_localsipcfg.svr_ip, m_localsipcfg.svr_port);
@@ -66,37 +65,39 @@ int CGB28181SvrManager::Start()
 
     CRequestManager::instance()->Start();
 
-    register_online();
+#if 0
+    register_to_platform();
 
     //启动心跳
-    Infra::ThreadProc proc = bind(&CGB28181SvrManager::heartbeat_proc, this, std::placeholders::_1);
+    Infra::ThreadProc proc = bind(&SipSvrManager::heartbeat_proc_to_platform, this, std::placeholders::_1);
     m_heartbeat.start(proc);
+#endif
     return 0;
 }
 
-int CGB28181SvrManager::register_online()
+int SipSvrManager::register_to_platform()
 {
     m_msgsender.RegisterOnline(m_remotesipcfg);
     return 0;
 }
 
-int CGB28181SvrManager::OnRegisterSuccess(int rid)
+int SipSvrManager::OnRegisterSuccess(int rid)
 {
     LOG_INFO("rid: {} register success!", rid);
     m_bRegok = true;
     return 0;
 }
 
-void CGB28181SvrManager::heartbeat_proc(void *param)
+void SipSvrManager::heartbeat_proc_to_platform(void *param)
 {
     LOG_INFO("heartbead thread entry.");
 
-    int timeoutcnt = 0;     ///<超时3次未回复 重新注册
+    int timeoutcnt = 0;     //<超时3次未回复 重新向上级注册
 
     while (m_heartbeat.looping())
     {
         if (m_bRegok) {
-            if (0 != keepalive()) {
+            if (0 != keepalive_to_platform()) {
                 timeoutcnt++;
             }
             if (timeoutcnt >= 3) {
@@ -104,13 +105,13 @@ void CGB28181SvrManager::heartbeat_proc(void *param)
             }
         }
         else {
-            register_online();
+            register_to_platform();
         }
         Infra::CThread::sleep(50 * 1000);
     }
 }
 
-int CGB28181SvrManager::keepalive()
+int SipSvrManager::keepalive_to_platform()
 {
     CBaseRequestSPtr request;
     int r = m_msgsender.Keepalive(m_remotesipcfg, m_localsipcfg, true, request);
@@ -125,18 +126,18 @@ int CGB28181SvrManager::keepalive()
     return r == 200 ? 0 : -2;
 }
 
-int CGB28181SvrManager::HandleDeviceControl(manscdp_devicecontrol_subcmd_e cmd, string &devid,
+int SipSvrManager::HandleDeviceControl(manscdp_devicecontrol_subcmd_e cmd, string &devid,
                                             manscdp_switch_status_e onoff)
 {
     return 0;
 }
 
-int CGB28181SvrManager::HandlePTZControl(control_cmd_t &ctrlcmd, string &devid)
+int SipSvrManager::HandlePTZControl(control_cmd_t &ctrlcmd, string &devid)
 {
     return 0;
 }
 
-int CGB28181SvrManager::HandleMediaRequest(sdp_description_t &req_sdp, const sip_event_sptr &e)
+int SipSvrManager::HandleMediaRequest(sdp_description_t &req_sdp, const sip_event_sptr &e)
 {
     const string& devid = req_sdp.u_uri;
     session_ptr s;
@@ -148,6 +149,5 @@ int CGB28181SvrManager::HandleMediaRequest(sdp_description_t &req_sdp, const sip
     return 0;
 }
 
-}
 }
 }

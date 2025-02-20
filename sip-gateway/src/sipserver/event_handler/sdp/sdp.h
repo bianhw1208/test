@@ -2,9 +2,8 @@
 
 #include "call_defs.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // SDP消息处理类 - 处理SDP消息的解析和组装
 class CSdpHandle
@@ -19,6 +18,5 @@ public:
     int AssembleSdp(string &sdp, const sdp_description_t &sdp_desc);
 };
 
-}
 }
 }

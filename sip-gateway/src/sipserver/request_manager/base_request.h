@@ -6,9 +6,8 @@
 #include "defs.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 基础请求类 - 所有请求类型的基类
 class CBaseRequest
@@ -69,6 +68,5 @@ struct base_request_map_t
     BaseRequestMap req_map;      // 请求ID到请求对象的映射表
 };
 
-}
 }
 }

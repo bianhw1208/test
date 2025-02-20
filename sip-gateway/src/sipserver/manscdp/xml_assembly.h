@@ -4,9 +4,8 @@
 #include "defs/defs.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // XML组装器类 - 用于组装MANSCDP XML消息
 class CXmlAssembly
@@ -52,6 +51,5 @@ private:
     tinyxml_doc_t m_tinyxml_doc;  // XML文档对象
 };
 
-}
 }
 }

@@ -5,8 +5,7 @@
 #include <string>
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 struct session_t
 {
@@ -19,5 +18,4 @@ struct session_t
 typedef shared_ptr<session_t> session_ptr;
 typedef map<string, session_ptr> session_map;
 
-}
-}
+} // namespace Gateway

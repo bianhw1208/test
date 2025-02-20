@@ -4,7 +4,7 @@
 #include <memory>
 #include <cstring>
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 struct CRtpHeader

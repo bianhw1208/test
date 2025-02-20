@@ -10,7 +10,7 @@
 #include "timestamps.h"
 #include "pes.h"
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 int CPsDemux::Decode(uint8_t *ps,

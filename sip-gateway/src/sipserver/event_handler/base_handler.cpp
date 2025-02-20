@@ -2,9 +2,8 @@
 #include "base_handler.h"
 #include "LogWrapper.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 int CBaseHandler::sendSimplyResp(const char *uname, struct eXosip_t *excontext, int tid, int status)
 {
@@ -48,6 +47,5 @@ const char *CBaseHandler::getMsgIdFromReq(osip_message_t *req)
     return (const char*)tag->gvalue;
 }
 
-}
 }
 }

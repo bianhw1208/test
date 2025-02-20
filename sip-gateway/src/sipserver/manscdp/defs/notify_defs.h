@@ -2,9 +2,8 @@
 
 #include "common_defs.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 保活消息对话结构
 struct manscdp_keepalive_dialogs_t
@@ -123,6 +122,5 @@ public:
     response_t      response;   // 响应消息
 };
 
-}
 }
 }

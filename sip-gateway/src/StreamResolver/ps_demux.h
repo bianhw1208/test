@@ -6,7 +6,7 @@
 #include <memory>
 #include "ps_def.h"
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 class CPsDemux {

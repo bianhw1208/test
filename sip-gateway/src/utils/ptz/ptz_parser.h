@@ -4,8 +4,7 @@
 #include "defs.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 class CPtzParser
 {
@@ -29,5 +28,4 @@ private:
     uint8_t m_b7;
 };
 
-}
 }

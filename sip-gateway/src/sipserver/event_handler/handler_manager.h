@@ -8,9 +8,8 @@
 #include "register_handler.h"
 #include "subscribe_handler.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 /// 事件处理对象，每种Event，对应一个处理方法
 class CEventHandlerManager
@@ -143,6 +142,5 @@ private:
 //    CEventHandlerSubscribe *m_pSubscribeHandler;
 };
 
-}
 }
 }

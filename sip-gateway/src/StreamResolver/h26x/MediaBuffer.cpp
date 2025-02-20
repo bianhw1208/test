@@ -4,7 +4,7 @@
 #include "MediaBuffer.h"
 #include <string.h>
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 #define JmixDeletePointer(p) \

@@ -7,9 +7,8 @@
 #include "LogWrapper.h"
 using  namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 extern string g_sipfrom_ipport;
 extern string g_sipfrom_domain;
@@ -136,6 +135,5 @@ const char *CMsgSender::get_reqid_from_request(osip_message_t *msg)
     return (const char*) tag->gvalue;
 }
 
-}
 }
 }

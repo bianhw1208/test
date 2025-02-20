@@ -2,9 +2,7 @@
 #include "ptz_parser.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-
+namespace Gateway {
 
 int CPtzParser::ParseControlCmd(control_cmd_t &ctrlcmd, const string &cmdstr)
 {
@@ -141,4 +139,4 @@ void CPtzParser::parse_scan(const char *b, control_cmd_t &ctrlcmd)
 }
 
 }
-}
+

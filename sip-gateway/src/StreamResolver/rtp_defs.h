@@ -3,7 +3,7 @@
 #include <memory>
 #include <bits/shared_ptr.h>
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 struct RtpPayload

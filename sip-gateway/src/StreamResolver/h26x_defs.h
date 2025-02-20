@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 //H264

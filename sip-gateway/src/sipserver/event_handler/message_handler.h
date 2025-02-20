@@ -6,9 +6,8 @@
 #include "sipserver/manscdp/defs/defs.h"
 #include "utils/ptz/ptz_parser.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 消息处理器类 - 处理SIP MESSAGE类型的消息
 class CMessageHandler : public CBaseHandler
@@ -96,6 +95,5 @@ private:
     map<manscdp_cmdtype_e, msg_event_proc>              m_queryproc;
 };
 
-}
 }
 }

@@ -2,8 +2,7 @@
 
 #include <cstdint>
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 ///< ÔÆÌ¨ ¾µÍ·±ä±¶
 struct ptz_cmd_zoom_t
@@ -151,5 +150,4 @@ struct control_cmd_t
     scan_cmd_t          autoscan;
 };
 
-}
 }

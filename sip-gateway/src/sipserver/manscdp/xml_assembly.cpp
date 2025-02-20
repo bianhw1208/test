@@ -1,9 +1,8 @@
 #include "LogWrapper.h"
 #include "xml_assembly.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 const char* result_type_str[] = {"UNKNOWN", "OK", "ERROR"};
 const char* status_type_str[] = {"UNKNOWN", "ON", "OFF"};
@@ -191,6 +190,5 @@ int CXmlAssembly::assemble_common_item(tinyxml_ele_t *root, const T& d)
     insert_child(root, "DeviceID", d.request.devid);
 }
 
-}
 }
 }

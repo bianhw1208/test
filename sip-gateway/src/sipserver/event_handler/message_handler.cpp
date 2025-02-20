@@ -1,11 +1,10 @@
 #include <sipserver/request_manager/request_manager.h>
-#include <sipserver/gb28181_svr_manager.h>
+#include <sipserver/sip_svr_manager.h>
 #include "message_handler.h"
 #include "osipparser2/osip_const.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 #define MSGPROC_TEMPLATE(F) (bind(&CMessageHandler::F, this, placeholders::_1, placeholders::_2, placeholders::_3))
 
@@ -159,7 +158,7 @@ int CMessageHandler::on_devctrl_ptzcmd(const sip_event_sptr &e, tinyxml_doc_t &d
 
     int statcode = SIP_OK;
     m_ptzparser.ParseControlCmd(ctrlcmd, cmdstr);
-    r = CGB28181SvrManager::instance()->HandlePTZControl(ctrlcmd, bh.devid);
+    r = SipSvrManager::instance()->HandlePTZControl(ctrlcmd, bh.devid);
     if (r !=0) {
         statcode = SIP_BAD_REQUEST;
     }
@@ -253,7 +252,7 @@ int CMessageHandler::devctrl_subcmd(const sip_event_sptr &e, string &devid, mans
     const char* username = e->exevent->request->from->url->username;
 
     int statcode = OSIP_SUCCESS;
-    int r = CGB28181SvrManager::instance()->HandleDeviceControl(subcmd, devid, SWITCH_ON);
+    int r = SipSvrManager::instance()->HandleDeviceControl(subcmd, devid, SWITCH_ON);
     if (r != 0) {
         statcode = SIP_BAD_REQUEST;
     }
@@ -307,6 +306,5 @@ int CMessageHandler::on_query_mobile_position(const sip_event_sptr &e, tinyxml_d
     return 0;
 }
 
-}
 }
 }

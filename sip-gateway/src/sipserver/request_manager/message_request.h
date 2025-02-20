@@ -3,9 +3,8 @@
 #include <string>
 #include "base_request.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 消息请求类 - 处理消息类型的请求
 class CMessageRequest : public CBaseRequest
@@ -43,6 +42,5 @@ private:
     int m_statcode;             // 保活响应状态码
 };
 
-}
 }
 }

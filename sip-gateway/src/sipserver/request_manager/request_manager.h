@@ -8,9 +8,8 @@
 
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 请求管理器类 - 管理所有外发请求的生命周期
 class CRequestManager
@@ -78,6 +77,5 @@ private:
     mutex m_mutex;                // 互斥锁,保护请求映射表
 };
 
-}
 }
 }

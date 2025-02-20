@@ -11,9 +11,8 @@
 #include "sipserver/request_manager/base_request.h"
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 消息发送器类 - 负责发送各类SIP消息
 class CMsgSender
@@ -81,6 +80,5 @@ private:
     CRequestManager m_reqmanager;    // 请求管理器
 };
 
-}
 }
 }

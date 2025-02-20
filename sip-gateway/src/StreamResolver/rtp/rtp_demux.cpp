@@ -12,7 +12,7 @@
 
 #define TIMESTAMP_KIND 3
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 CRtpDemux::CRtpDemux()

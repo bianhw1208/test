@@ -1,8 +1,7 @@
 #include "base_request.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 const char *request_type_str[OUTCOMING_REQ_TYPE_MAX] = {
         "unknown",
@@ -73,6 +72,5 @@ time_t CBaseRequest::GetReqtime()
     return m_reqtime;
 }
 
-}
 }
 }

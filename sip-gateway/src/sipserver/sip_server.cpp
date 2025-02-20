@@ -4,9 +4,8 @@
 #include "threadpool.h"
 #include "event_handler/handler_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 获取单例实例
 CSipServer *CSipServer::instance()
@@ -55,7 +54,7 @@ int CSipServer::Start(const std::string &user_agent)
     if (ret != 0) {
         eXosip_quit(m_excontext);
         
-        LOG_ERROR("eXosip_listen_addr failed, ret: {}", ret);
+        LOG_ERROR("eXosip_listen_addr failed, ret: {}, errno: {}", ret, errno);
         return -1;
     }
 
@@ -88,12 +87,16 @@ int CSipServer::DoReceiveEvents()
         if (event == nullptr)
             continue;
 
+        eXosip_lock(m_excontext);
+        eXosip_default_action(m_excontext, event);
+        eXosip_unlock(m_excontext);
+
         // 创建新的事件对象并加入队列
         sip_event_sptr e = new_event(m_excontext, event);
         m_eventQueue.Push(e);
 
-        // 释放eXosip事件
-        eXosip_event_free(event);
+        // 释放eXosip事件, 挪至DoProcessEvents中释放
+        //eXosip_event_free(event);
     }
     return 0;
 }
@@ -109,7 +112,11 @@ int CSipServer::DoProcessEvents()
 
         // 调用事件处理器处理事件
         if (e->proc) {
+            LOG_INFO("do process event, id: {}, type: {}, method: {}", e->id, e->name, e->exevent->request->sip_method);
             e->proc(e);
+
+            // 释放eXosip事件
+            eXosip_event_free(e->exevent);
         }
     }
     return 0;
@@ -136,10 +143,9 @@ sip_event_sptr CSipServer::new_event(eXosip_t *exosip_context, eXosip_event_t *e
     event->excontext = exosip_context;
     event->exevent = exosip_event;
     event->id = m_eventId++;
-
+    LOG_INFO("receive new event, id: {}, type: {}, method: {}", event->id, event->name, event->exevent->request->sip_method);
     return event;
 }
 
-}
 }
 }

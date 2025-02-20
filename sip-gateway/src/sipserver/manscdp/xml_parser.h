@@ -5,9 +5,8 @@
 
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // XML解析器类 - 用于解析MANSCDP XML消息
 class CXmlParser
@@ -56,6 +55,5 @@ private:
     bool is_member(tinyxml_ele_t *ele, const char *name);
 };
 
-}
 }
 }

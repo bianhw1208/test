@@ -1,11 +1,10 @@
 #include <sipserver/defs.h>
 #include "call_handler.h"
 #include "./sdp/sdp.h"
-#include "sipserver/gb28181_svr_manager.h"
+#include "sipserver/sip_svr_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 
 int CCallHandler::HandleIncomingCall(const sip_event_sptr &e)
@@ -48,7 +47,7 @@ int CCallHandler::HandleIncomingCall(const sip_event_sptr &e)
 int CCallHandler::on_call_play_req(const sip_event_sptr &e, const sdp_description_t &req_sdp)
 {
 #if 0
-    int r = CGB28181SvrManager::instance()->HandleMediaRequest(req_sdp, e);
+    int r = SipSvrManager::instance()->HandleMediaRequest(req_sdp, e);
 #endif
     return 0;
 }
@@ -68,6 +67,5 @@ int CCallHandler::on_call_talk_req(const sip_event_sptr &e, const sdp_descriptio
     return 0;
 }
 
-}
 }
 }

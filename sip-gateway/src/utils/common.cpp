@@ -2,8 +2,7 @@
 #include <iconv.h>
 #include <cstring>
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 string character_gb28181_to_utf8(char *src, int srclen)
 {
@@ -31,6 +30,5 @@ string character_gb28181_to_utf8(char *src, int srclen)
     return s;
 }
 
-}
 }
 

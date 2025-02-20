@@ -14,7 +14,7 @@
 #include "H264ParseSPS.h"
 #include "H265ParseSPS.h"
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 CH26xParser::CH26xParser()

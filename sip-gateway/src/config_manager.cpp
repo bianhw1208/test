@@ -1,8 +1,6 @@
 #include "config_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-
+namespace Gateway {
 CConfigManager *CConfigManager::instance()
 {
     static CConfigManager _ins;
@@ -84,5 +82,4 @@ bool CConfigManager::GetMediaPortPool(media_port_pool_t &portpool)
     return true;
 }
 
-}
 }

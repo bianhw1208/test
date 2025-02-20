@@ -7,7 +7,7 @@
 #include <mutex>
 using namespace std;
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 class CMediaBuffer

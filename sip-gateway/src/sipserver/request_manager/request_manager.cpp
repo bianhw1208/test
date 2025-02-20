@@ -2,9 +2,8 @@
 #include "LogWrapper.h"
 #include "request_manager.h"
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 extern const char* request_type_str[OUTCOMING_REQ_TYPE_MAX];
 
@@ -148,6 +147,5 @@ int CRequestManager::handle_response(base_request_map_t &reqmap, string &reqid, 
     return 0;
 }
 
-}
 }
 }

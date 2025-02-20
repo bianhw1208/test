@@ -2,9 +2,8 @@
 
 #include <osipparser2/osip_message.h>
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 基础事件处理器类 - 所有事件处理器的基类
 class CBaseHandler
@@ -27,6 +26,5 @@ protected:
     const char* getMsgIdFromReq(osip_message_t* req);
 };
 
-}
 }
 }

@@ -1,7 +1,6 @@
 #include "session_manager.h"
 
-namespace Zilu {
-namespace Protocol {
+namespace Gateway {
 
 CSessionManager::CSessionManager()
 {
@@ -28,6 +27,5 @@ int CSessionManager::CreateSession(const string &sess_id, session_ptr &s)
     return 0;
 }
 
-}
-}
+} // namespace Gateway
 

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Zilu {
+namespace Gateway {
 namespace StreamResolver {
 
 #define PS_STREAM_ID_END_STREAM         0xB9

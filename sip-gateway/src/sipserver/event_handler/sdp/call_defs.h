@@ -6,9 +6,8 @@
 
 using namespace std;
 
-namespace Zilu {
-namespace Protocol {
-namespace GB28181 {
+namespace Gateway {
+namespace SIP {
 
 // 媒体操作类型枚举
 enum media_operate_type_e
@@ -92,6 +91,5 @@ struct sdp_description_t
     }
 };
 
-}
 }
 }
