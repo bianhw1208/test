@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 # Make use of c++11
 SET(CMAKE_CXX_STANDARD 11)
 
-set(ProjectName gb28181_server)  
+set(ProjectName sip-gateway)  
 project(${ProjectName})
 
 # 检查文件或目录是否存在
