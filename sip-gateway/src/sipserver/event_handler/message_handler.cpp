@@ -74,10 +74,10 @@ int CMessageHandler::HandleIncomingReq(const sip_event_sptr &e)
             r = handle_incoming_req_query(e, doc, bodyheader);
             break;
         case MANSCDP_CMD_CATEGORY_NOTIFY:
-
+            r = handle_incoming_req_notify(e, doc, bodyheader);
             break;
         case MANSCDP_CMD_CATEGORY_RESPONSE:
-
+            r = handle_incoming_req_response(e, doc, bodyheader);
             break;
         default:
             break;
@@ -132,12 +132,20 @@ int CMessageHandler::handle_incoming_req_query(const sip_event_sptr &e, tinyxml_
 int CMessageHandler::handle_incoming_req_notify(const sip_event_sptr &e, tinyxml_doc_t &doc,
                                                 manscdp_msgbody_header_t &bh)
 {
+    if (e){
+        sendSimplyResp(e->name, e->excontext, e->exevent->tid, SIP_OK);
+    }
+    
     return 0;
 }
 
 int CMessageHandler::handle_incoming_req_response(const sip_event_sptr &e, tinyxml_doc_t &doc,
                                                   manscdp_msgbody_header_t &bh)
 {
+    if (e) {
+        sendSimplyResp(e->name, e->excontext, e->exevent->tid, SIP_OK);
+    }
+
     return 0;
 }
 

@@ -381,7 +381,7 @@ int main1()
     while (true)
     {
         // Wait the osip event.
-        osipEventPtr = eXosip_event_wait(0, 0, 200);// 0的单位是秒，500是毫秒
+        osipEventPtr = eXosip_event_wait(s_excontext, 0, 200);// 0的单位是秒，500是毫秒
         // If get nothing osip event,then continue the loop.
         if (NULL == osipEventPtr)
         {

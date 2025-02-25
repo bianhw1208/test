@@ -15,7 +15,7 @@ public:
 
 protected:
     // 发送简单响应消息
-    int sendSimplyResp(const char* uname, eXosip_t* excontext, int tid, int status);
+    int sendSimplyResp(const char* eventname, eXosip_t* excontext, int tid, int status);
 
     // 发送呼叫确认消息
     int sendCallAck(eXosip_t* excontext, int did);

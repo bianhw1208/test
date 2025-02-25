@@ -31,7 +31,7 @@ int CSipServer::Init()
         LOG_ERROR("eXosip_init failed, ret = ", ret);
         return -1;
     }
-    LOG_INFO("eXosip_init successfully!");
+    LOG_INFO("eXosip_init success!");
     return 0;
 }
 
@@ -68,7 +68,7 @@ int CSipServer::Start(const std::string &user_agent)
 
     Infra::CThreadPool::instance()->run(recvTask);
     Infra::CThreadPool::instance()->run(procTask1);
-
+    LOG_INFO("eXosip_listen_addr success, listen on {}:{}", m_sipHost, m_sipPort);
     return 0;
 }
 
@@ -93,7 +93,7 @@ int CSipServer::DoReceiveEvents()
 
         // 创建新的事件对象并加入队列
         sip_event_sptr e = new_event(m_excontext, event);
-        m_eventQueue.Push(e);
+        m_eventQueue.push(e);
 
         // 释放eXosip事件, 挪至DoProcessEvents中释放
         //eXosip_event_free(event);
@@ -107,12 +107,25 @@ int CSipServer::DoProcessEvents()
     while (1) {
         // 从队列获取事件
         sip_event_sptr e;
-        if (!m_eventQueue.Pop(e))
+        if (!m_eventQueue.pop(e))
             continue;
 
         // 调用事件处理器处理事件
         if (e->proc) {
-            LOG_INFO("do process event, id: {}, type: {}, method: {}", e->id, e->name, e->exevent->request->sip_method);
+            const char* deviceid = "";
+            const char* ip = "";
+            int port = 0;
+            
+            if (e->exevent && e->exevent->request && e->exevent->request->req_uri) {
+                
+                // 从From头域获取设备ID
+                if (e->exevent->request->from && e->exevent->request->from->url) {
+                    deviceid = e->exevent->request->from->url->username;
+                }
+            }
+
+            LOG_INFO("do process event, deviceid: {}, eventid: {}, type: {}, method: {}", 
+                deviceid, e->eventid, e->name, e->exevent->request->sip_method);
             e->proc(e);
 
             // 释放eXosip事件
@@ -142,8 +155,22 @@ sip_event_sptr CSipServer::new_event(eXosip_t *exosip_context, eXosip_event_t *e
     event->proc = pair.proc;
     event->excontext = exosip_context;
     event->exevent = exosip_event;
-    event->id = m_eventId++;
-    LOG_INFO("receive new event, id: {}, type: {}, method: {}", event->id, event->name, event->exevent->request->sip_method);
+    event->eventid = m_eventId++;
+
+    const char* deviceid = "";
+    const char* ip = "";
+    int port = 0;
+
+    if (event->exevent && event->exevent->request && event->exevent->request->req_uri) {
+
+        // 从From头域获取设备ID
+        if (event->exevent->request->from && event->exevent->request->from->url) {
+            deviceid = event->exevent->request->from->url->username;
+        }
+    }
+
+    //LOG_INFO("do process event, deviceid: {}, eventid: {}, type: {}, method: {}",
+    //    deviceid, event->eventid, event->name, event->exevent->request->sip_method);
     return event;
 }
 

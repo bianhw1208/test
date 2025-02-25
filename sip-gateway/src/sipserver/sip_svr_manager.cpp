@@ -65,13 +65,10 @@ int SipSvrManager::Start()
 
     CRequestManager::instance()->Start();
 
-#if 0
-    register_to_platform();
-
-    //启动心跳
+    //启动心跳-向上级平台注册
     Infra::ThreadProc proc = bind(&SipSvrManager::heartbeat_proc_to_platform, this, std::placeholders::_1);
     m_heartbeat.start(proc);
-#endif
+
     return 0;
 }
 

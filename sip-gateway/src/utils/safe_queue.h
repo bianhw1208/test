@@ -13,13 +13,13 @@ public:
 
     ~CSafeQueue() = default;
 
-    void Push(const T& in)
+    void push(const T& in)
     {
         std::lock_guard<std::mutex> g(m_mutex);
         m_queue.push(in);
     }
 
-    bool Pop(T& out)
+    bool pop(T& out)
     {
         std::lock_guard<std::mutex> g(m_mutex);
         if (m_queue.empty())

@@ -19,7 +19,7 @@ struct sip_event_t
     event_proc          proc;
     struct eXosip_t*    excontext;
     eXosip_event_t*     exevent;
-    uint64_t            id;
+    uint64_t            eventid;
 
     sip_event_t() = default;
 };

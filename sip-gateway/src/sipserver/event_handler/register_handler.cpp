@@ -1,29 +1,53 @@
 #include "register_handler.h"
 #include "LogWrapper.h"
 
+#include <sstream>
+
+//è¯¥ç³»æ•°æ˜¯ç”±UASç»´æŠ¤çš„ï¼ŒUASåœ¨æ¥æ”¶åˆ°UACçš„æœªé‰´æƒæŠ¥æ–‡åï¼Œç»™UACå›å¤401ï¼Œåœ¨è¯¥æŠ¥æ–‡ä¸­å¿…é¡»è¦å¸¦ç›¸å…³è®¤è¯ç³»æ•°å’Œè®¤è¯æ–¹æ³•
+//UASèµ‹å€¼çš„è®¤è¯éšæœºæ•°
+#define NONCE "9bd055"
+//UASé»˜è®¤åŠ å¯†ç®—æ³•
+#define ALGORITHTHM "MD5"
+
 namespace Gateway {
     namespace SIP {
         int CRegisterHandler::HandleRequest(const sip_event_sptr& event)
         {
             eXosip_event_t* exosip_event = event->exevent;
 
-            // ¼ì²éÇëÇóÊÇ·ñ´øÓĞAuthorizationÍ·²¿
+            // æ£€æŸ¥æ˜¯å¦åŒ…å«Authorizationå¤´åŸŸ
             osip_message_t* request = exosip_event->request;
             osip_authorization_t* auth_header = nullptr;
             osip_message_get_authorization(request, 0, &auth_header);
 
             if (auth_header == nullptr) {
-                // ·¢ËÍ401 Unauthorized ÏìÓ¦
+                // å‘é€401 Unauthorized å“åº”ï¼Œéœ€è¦æ·»åŠ WWW-Authenticateå¤´åŸŸ
                 LOG_INFO("Sending 401 Unauthorized for REGISTER request, ID: {}", exosip_event->rid);
-                return SendRegisterResponse(event, SIP_UNAUTHORIZED);
+                
+                osip_message_t* response = nullptr;
+                eXosip_message_build_answer(event->excontext, exosip_event->tid, 401, &response);
+                
+                if (response != nullptr) {
+                    //ç”±SIPåº“ç”Ÿæˆè®¤è¯æ–¹æ³•å’Œè®¤è¯å‚æ•°å‘é€å®¢æˆ·ç«¯
+                    std::stringstream stream;
+                    string nonce = NONCE;
+                    string algorithm = ALGORITHTHM;
+                    stream 
+                        << "Digest realm=\"" << event->exevent->request->from->url->host
+                        << "\",nonce=\"" << nonce
+                        << "\",algorithm=" << algorithm;
+
+                    osip_message_set_header(response, "WWW-Authenticate",
+                        stream.str().c_str());
+                    
+                    eXosip_message_send_answer(event->excontext, exosip_event->tid, SIP_UNAUTHORIZED, response);
+                    return 0;
+                }
+                
+                return -1;
             }
             else {
-                // ´¦Àí´øÓĞÉí·İÑéÖ¤µÄREGISTERÇëÇó
-                LOG_INFO("Handling authenticated REGISTER request, ID: {}", exosip_event->rid);
-
-                // ÕâÀï¿ÉÒÔÌí¼Ó¸ü¶àµÄÂß¼­À´´¦Àí×¢²áÇëÇó£¬ÀıÈçÑéÖ¤ÓÃ»§ĞÅÏ¢µÈ
-
-                // ¼ÙÉèÑéÖ¤³É¹¦£¬·¢ËÍ200 OK ÏìÓ¦
+                // å¦‚æœè®¤è¯æˆåŠŸï¼Œå‘é€200 OK å“åº”
                 return SendRegisterResponse(event, SIP_OK);
             }
         }
@@ -32,7 +56,7 @@ namespace Gateway {
         {
             eXosip_event_t* exosip_event = event->exevent;
 
-            // ·¢ËÍÏìÓ¦
+            // å‘é€å“åº”
             int ret = sendSimplyResp(event->name, event->excontext, exosip_event->tid, status);
             if (ret != 0) {
                 LOG_ERROR("Failed to send REGISTER response, status: {}", status);

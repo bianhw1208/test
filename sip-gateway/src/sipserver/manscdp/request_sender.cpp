@@ -59,6 +59,9 @@ int CMsgSender::RegisterOnline(remote_sip_t &remote)
         LOG_ERROR("send register failed, ret: {}", r);
         return -1;
     }
+    else {
+        LOG_INFO("send register to up platform success, ret: {}", r);
+    }
     return 0;
 }
 

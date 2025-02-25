@@ -5,17 +5,27 @@
 namespace Gateway {
 namespace SIP {
 
-int CBaseHandler::sendSimplyResp(const char *uname, eXosip_t *excontext, int tid, int status)
+int CBaseHandler::sendSimplyResp(const char * eventname, eXosip_t *excontext, int tid, int status)
 {
     osip_message_t * answer = nullptr;
 
     eXosip_lock(excontext);
     eXosip_message_build_answer(excontext, tid, status, &answer);
-    int r = eXosip_message_send_answer(excontext, tid, status, nullptr);
+    int r = eXosip_message_send_answer(excontext, tid, status, answer);
     eXosip_unlock(excontext);
 
-    LOG_DEBUG("sendSimplyResq: {} to uname: {}, ret: {}", status, uname, r);
+    // 从From头域获取设备ID
+    /*std::string deviceid;
+    if (e->exevent->request->from && e->exevent->request->from->url) {
+        deviceid = e->exevent->request->from->url->username;
+    }*/
 
+    if (!r){
+        LOG_DEBUG("sendSimplyResq: {} to tid: {}, event name: {} sueccess!", status, tid, eventname);
+    }
+    else {
+        LOG_ERROR("sendSimplyResq: {} to tid: {}, event name: {} failed!", status, tid, eventname);
+    }
     return r;
 }
 
