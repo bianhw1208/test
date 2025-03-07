@@ -29,6 +29,7 @@ file(GLOB GB_SRC_LIST
   ${CMAKE_CURRENT_SOURCE_DIR}/src/mediaserver/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ptz/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/sqldb/*.cpp
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/StreamResolver/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/StreamResolver/h26x/*.cpp

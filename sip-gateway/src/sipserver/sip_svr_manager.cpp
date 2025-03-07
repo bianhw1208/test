@@ -104,7 +104,7 @@ void SipSvrManager::heartbeat_proc_to_platform(void *param)
         else {
             register_to_platform();
         }
-        Infra::CThread::sleep(50 * 1000);
+        Infra::CThread::sleep(10 * 1000);
     }
 }
 

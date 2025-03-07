@@ -42,25 +42,25 @@ int CMsgSender::RegisterOnline(remote_sip_t &remote)
     osip_message_t * reg;
 
     exosip_guard_t guard(g_excontext);
-    int rid = eXosip_register_build_initial_register(g_excontext,
+    int nRet = eXosip_register_build_initial_register(g_excontext,
             g_sipfrom_ipport.c_str(),
             g_sipproxy_ipport.c_str(),
             g_sipfrom_ipport.c_str(), 3600, &reg);
-    if (rid < 1) {
-        LOG_ERROR("build register failed, nRet: {}",rid);
+    if (nRet < 1) {
+        LOG_ERROR("build registerc failed, nRet: {}", g_sipproxy_ipport.c_str(), g_sipfrom_ipport.c_str(), nRet);
         return -1;
     }
 
     eXosip_add_authentication_info(g_excontext, remote.svr_id.c_str(), remote.svr_id.c_str(),
                                    remote.passwd.c_str(), "MD5", nullptr);
 
-    int r = eXosip_register_send_register(g_excontext, rid, reg);
-    if (r != 0) {
-        LOG_ERROR("send register failed, ret: {}", r);
+    nRet = eXosip_register_send_register(g_excontext, nRet, reg);
+    if (nRet != 0) {
+        LOG_ERROR("send register to up platform [{}:{}] failed, nRet: {}", g_sipproxy_ipport.c_str(), g_sipfrom_ipport.c_str(), nRet);
         return -1;
     }
     else {
-        LOG_INFO("send register to up platform success, ret: {}", r);
+        LOG_INFO("send register to up platform [{}:{}] success, nRet: {}", g_sipproxy_ipport.c_str(), g_sipfrom_ipport.c_str(), nRet);
     }
     return 0;
 }
